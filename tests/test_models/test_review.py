@@ -8,7 +8,7 @@ import inspect
 import models
 from models import review
 from models.base_model import BaseModel
-import pep8
+import pycodestyle
 import unittest
 Review = review.Review
 
@@ -21,15 +21,16 @@ class TestReviewDocs(unittest.TestCase):
         cls.review_f = inspect.getmembers(Review, inspect.isfunction)
 
     def test_pep8_conformance_review(self):
-        """Test that models/review.py conforms to PEP8."""
-        pep8s = pep8.StyleGuide(quiet=True)
+        """Test that models/review.py conforms to pycodestyle."""
+        pep8s = pycodestyle.StyleGuide(quiet=True)
         result = pep8s.check_files(['models/review.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
     def test_pep8_conformance_test_review(self):
-        """Test that tests/test_models/test_review.py conforms to PEP8."""
-        pep8s = pep8.StyleGuide(quiet=True)
+        """Test that tests/test_models/test_review.py conforms
+        to pycodestyle."""
+        pep8s = pycodestyle.StyleGuide(quiet=True)
         result = pep8s.check_files(['tests/test_models/test_review.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
@@ -59,6 +60,7 @@ class TestReviewDocs(unittest.TestCase):
 
 class TestReview(unittest.TestCase):
     """Test the Review class"""
+
     def test_is_subclass(self):
         """Test if Review is a subclass of BaseModel"""
         review = Review()
