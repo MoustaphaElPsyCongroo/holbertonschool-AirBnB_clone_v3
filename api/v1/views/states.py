@@ -20,6 +20,8 @@ def get_state(state_id):
     if not found:
         abort(404)
 
+    return jsonify(found.to_dict())
+
 
 @app_views.route('/states/<state_id>', methods=["DELETE"])
 def delete_state(state_id):
