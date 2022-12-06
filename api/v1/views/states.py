@@ -28,7 +28,7 @@ def delete_state(state_id):
     """DELETE a single state"""
     found = storage.get(State, state_id)
     if not found:
-        return {}, 200
+        return {}, 404
     else:
         storage.delete(found)
         storage.save()
