@@ -66,8 +66,9 @@ def update_state(state_id):
             abort(400, description="Not a JSON")
         else:
             invalid = ['id', 'created_at', 'updated_at']
-            found = {key: value for key,
-                     value in req.items() if key not in invalid}
+            for key, value in req.items():
+                if key not in invalid:
+                    setattr(found, key, value)
             storage.save()
             return jsonify(found.to_dict()), 200
     except ValueError:
