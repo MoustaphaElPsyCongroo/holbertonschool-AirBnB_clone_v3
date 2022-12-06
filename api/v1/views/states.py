@@ -39,5 +39,33 @@ def create_state():
         req = request.get_json()
         if req is None:
             abort(400, description="Not a JSON")
+        elif req.get('name') is None:
+            abort(400, description="Missing name")
+        else:
+            created = State(**req)
+            storage.new(created)
+            storage.save()
+            return jsonify(created.to_dict()), 201
+    except ValueError:
+        abort(400, description="Not a JSON")
+
+
+@app_views.route('/states/<state_id>', methods=["PUT"])
+def update_state(state_id):
+    """PUT/UPDATE a single state"""
+    found = storage.get(State, state_id)
+    if not found:
+        abort(404)
+
+    try:
+        req = request.get_json()
+        if req is None:
+            abort(400, description="Not a JSON")
+        else:
+            invalid = ['id', 'created_at', 'updated_at']
+            found = {key: value for key,
+                     value in req.items() if key not in invalid}
+            storage.save()
+            return jsonify(found.to_dict()), 200
     except ValueError:
         abort(400, description="Not a JSON")
