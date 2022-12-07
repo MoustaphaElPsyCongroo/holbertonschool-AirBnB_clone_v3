@@ -42,8 +42,10 @@ def create_user():
         req = request.get_json()
         if req is None:
             abort(400, description="Not a JSON")
-        elif req.get('name') is None:
-            abort(400, description="Missing name")
+        elif req.get('email') is None:
+            abort(400, description="Missing email")
+        elif req.get('password') is None:
+            abort(400, description="Missing password")
         else:
             created = User(**req)
             storage.new(created)
