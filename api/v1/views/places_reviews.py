@@ -69,7 +69,7 @@ def create_review(place_id):
         abort(400, description="Not a JSON")
 
 
-@app_views.route('/reivews/<review_id>', methods=["PUT"])
+@app_views.route('/reviews/<review_id>', methods=["PUT"])
 def update_review(review_id):
     """PUT/UPDATE a single review"""
     review = storage.get(Review, review_id)
