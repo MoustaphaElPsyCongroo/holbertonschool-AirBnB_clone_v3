@@ -14,7 +14,6 @@ def get_cities(state_id):
     if state is None:
         abort(404)
 
-    state = state.to_dict()
     cities = [city.to_dict() for city in state.cities]
 
     return jsonify(cities)
